@@ -66,7 +66,9 @@ At this point, the only thing we need is the IP address of the AWS Fargate insta
 The AWS CLI doesn't provide this information directly through the `describe-services` or `describe-tasks` command.
 To find it, we need to do some digging through the AWS Networking System.
 
-Everything that is connected in AWS has an attached entity called ENI - Elastic Network Interface; by knowing this information we can retrieve the public ip address of the instance.  
+Do you remember before, in the definition, when we defined `awsvpc`?
+`awsvpc` is a new network mode launched from AWS last year, and it permits any new container to be attached to an ENI - Elastic Network Interface. By discovering and inspecting the ENI we can retrieve the Public IP address of the container.  
+
 In order to do this, we first...  
 
 1. Retrieve the Task ID from our cluster definition:
