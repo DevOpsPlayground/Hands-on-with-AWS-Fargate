@@ -10,8 +10,8 @@ During this Playground we are going to use the AWS CLI to create an ECS cluster 
 **Role:** DevOps And Continuous Delivery Consultant  
 **Email:** enzo@ecs-digital.co.uk  
 **Linkedin:** https://www.linkedin.com/in/enzoriv/  
-**Github:** https://github.com/enzor
-**Twitter:** https://twitter.com/enzorivelllo
+**Github:** https://github.com/enzor  
+**Twitter:** https://twitter.com/enzorivello
 
 ## Requirements
 
