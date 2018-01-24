@@ -1,7 +1,26 @@
-# DevOps Hands On - Fargate
+# DevOps Playground #17: All Hands on AWS Fargate
 
-Necessary steps to complete:
-(noting them down, will format better in a second moment)
+<img src='assets/aws_fargate.png' width="100%">
+
+## Introduction
+
+During this Playground we are going to use the AWS CLI to create an ECS cluster, launching a service using the Fargate Launch Type. We will understand it's functionality and it's place amongst the AWS Cloud Services.
+
+**Name:** Enzo Rivello 
+**Role:** DevOps And Continuous Delivery Consultant  
+**Email:** enzo@ecs-digital.co.uk  
+**Linkedin:** https://www.linkedin.com/in/enzoriv/  
+**Github:** https://github.com/enzor
+**Twitter:** https://twitter.com/enzorivelllo
+
+## Requirements
+
+1. SSH Client (Terminal or Putty)
+2. Paper with neccesary variables provided by ECS Digital:
+  - IP Address
+  - Security Group ID
+  - Public Subnet ID
+
 ## Setup
 1. Open your console (Putty for Windows Users)
 2. Connect to your provisional instance:
