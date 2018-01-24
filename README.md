@@ -6,7 +6,7 @@
 
 During this Playground we are going to use the AWS CLI to create an ECS cluster, launching a service using the Fargate Launch Type. We will understand it's functionality and it's place amongst the AWS Cloud Services.
 
-**Name:** Enzo Rivello 
+**Name:** Enzo Rivello  
 **Role:** DevOps And Continuous Delivery Consultant  
 **Email:** enzo@ecs-digital.co.uk  
 **Linkedin:** https://www.linkedin.com/in/enzoriv/  
