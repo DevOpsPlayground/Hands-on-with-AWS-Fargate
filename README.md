@@ -66,7 +66,7 @@ At this point, the only thing we need is the IP address of the AWS Fargate insta
 The AWS CLI doesn't provide this information directly through the `describe-services` or `describe-tasks` command.
 To find it, we need to do some digging through the AWS Networking System.
 
-Do you remember before, in the definition, when we defined `awsvpc`?
+Do you remember before, in the definition, when we defined `awsvpc`?  
 `awsvpc` is a new network mode launched from AWS last year, and it permits any new container to be attached to an ENI - Elastic Network Interface. By discovering and inspecting the ENI we can retrieve the Public IP address of the container.  
 
 In order to do this, we first...  
