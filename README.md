@@ -17,28 +17,29 @@ During this Playground we are going to use the AWS CLI to create an ECS cluster,
 
 1. SSH Client (Terminal or Putty)
 2. Paper with neccesary variables provided by ECS Digital:
- - IP Address
- - Security Group ID
- - Public Subnet ID
+   - IP Address
+   - Security Group ID
+   - Public Subnet ID
 
 
 ## Setup
 1. Open your SSH Client
 2. Connect to your provisional instance:
  - `ssh ec2-user@Provided-Ip-Address`
-3. You are ready to go!
+3. When prompted, use the password displayed on the big screen
+4. You are ready to go!
 
 ## Deployment
-1. To ease the deployment 
- - 
+1. To ease the deployment, we will start by defining some variables that we are going to use later
  ```
  cluster_name=<name>-<surname>-cluster
  subnet_id=provided-subnet-id
  ghost_sg_id=provided-sg-id
  ```
 
-2. Create your cluster: 
+2. The first real step in
  - `aws ecs create-cluster --cluster-name ${cluster_name}`
+
 3. Create your blog service
  - 
  ```
@@ -51,13 +52,17 @@ During this Playground we are going to use the AWS CLI to create an ECS cluster,
    
 4. Inspect your service
  - `aws ecs describe-services --cluster ${cluster_name} --service farghost-1 `
+
 5. Retrieve the task-id of the service
  - `aws ecs describe-services --cluster ${cluster_name} --service farghost-1  | grep task`
+
 6. Inspect your service task
  - `aws ecs describe-tasks --cluster ${cluster_name} --tasks YOUR_TASK_ID `
+
 7. Retrieve Service IP Address
  - `aws ecs describe-tasks --cluster ${cluster_name} --tasks YOUR_TASK_ID  | grep eni`
  - `aws ec2 describe-network-interfaces --network-interface-ids YOUR_ENI  | grep PublicIp`
+
 8. See your blog: open http://YOUR_IP_ADDRESS:2368 and enjoy!
 
 ## Cleanup
