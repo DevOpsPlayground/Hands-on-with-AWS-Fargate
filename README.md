@@ -37,10 +37,14 @@ During this Playground we are going to use the AWS CLI to create an ECS cluster,
  ghost_sg_id=provided-sg-id
  ```
 
-2. The first real step in
+2. The first real step in deploying a new service to Elastic Container Service is by defining a Cluster.
    - `aws ecs create-cluster --cluster-name ${cluster_name}`
 
-3. Create your blog service
+3. (Optional) Once you have your cluster, you need to upload a task definition. This is the real description of your image. A Sample definition of a service can be found [here](tasks/blog-task-definition.json). The command to upload the definition online is:
+   - `aws ecs register-task-definition --cli-input-json file://$PWD/tasks/blog-task-definition.json`
+   For your convenience we already uploded one, so this action is not necessary.
+
+4. Once the definition has been uploaded, is time to create the Service, using the following command.
  ```
     aws ecs create-service --cluster ${cluster_name} \
      --service-name farghost-1 --task-definition my-blog:1 \
@@ -48,23 +52,37 @@ During this Playground we are going to use the AWS CLI to create an ECS cluster,
      --network-configuration "awsvpcConfiguration={subnets=[${subnet_id}],securityGroups=[${ghost_sg_id}],assignPublicIp=ENABLED}"
      
  ```
-   
-4. Inspect your service
+ In ECS, the Service is the controller that spawn an entity called Task. Task is the activity that download the image, create or destroy a container. The Service is the entity that keep the service up and running to a desired count or scale it.
+ For external access, we can attach the Service entity to a Service Load Balancer, so  that the load will be evenly distributed amongst our services.
+
+5. We can always retrieve up-to-date information about our service by using the `describe-services` command in the CLI
    - `aws ecs describe-services --cluster ${cluster_name} --service farghost-1 `
 
-5. Retrieve the task-id of the service
+## Retrieve Public ID  
+At this point, the only thing we need is the IP address of the AWS Fargate instance.
+The AWS CLI doesn't provide this information directly through the `describe-services` or `describe-tasks` command.
+To find it, we need to go through AWS Networking Schema!  
+
+Everything that is connected in AWS has an attached entity called ENI - Elastic Network Interface; by knowing this information we can retrieve the public ip address of the instance.  
+In order to do this, we first...  
+
+1. Retrieve the information from your cluster, and search for the running task ID
    - `aws ecs describe-services --cluster ${cluster_name} --service farghost-1  | grep task`
 
-6. Inspect your service task
+
+2. Inspect your task using the `describe-tasks` command in the CLI
    - `aws ecs describe-tasks --cluster ${cluster_name} --tasks YOUR_TASK_ID `
 
-7. Retrieve Service IP Address
+3. Retrieve the ENI Id from the task definition:
    - `aws ecs describe-tasks --cluster ${cluster_name} --tasks YOUR_TASK_ID  | grep eni`
+
+4. Retrieve the PublicIp by using the `describe-network-interfaces` command from the `aws ec2` cli
    - `aws ec2 describe-network-interfaces --network-interface-ids YOUR_ENI  | grep PublicIp`
 
-8. See your blog: open http://YOUR_IP_ADDRESS:2368 and enjoy!
+5. See your blog: open http://YOUR_IP_ADDRESS:2368 and enjoy!
 
 ## Cleanup
+
 1. Set up the desired count for your blog service to 0
    - `aws ecs update-service --cluster ${cluster_name} --service farghost-1 --desired-count 0 `
 2. Delete the farghost-1 service
