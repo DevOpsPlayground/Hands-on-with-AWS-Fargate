@@ -40,8 +40,10 @@ During this Playground we are going to use the AWS CLI to create an ECS cluster,
 2. The first real step in deploying a new service to Elastic Container Service is by defining a Cluster.
    - `aws ecs create-cluster --cluster-name ${cluster_name}`
 
-3. (Optional) Once you have your cluster, you need to upload a task definition. This is the real description of your image. A Sample definition of a service can be found [here](tasks/blog-task-definition.json). The command to upload the definition online is:
-   - `aws ecs register-task-definition --cli-input-json file://$PWD/tasks/blog-task-definition.json`
+3. (Optional) Once you have your cluster, you need to upload a task definition. This is the real description of your image. A Sample definition of a service can be found [here](tasks/blog-task-definition.json). The command to upload the definition online is:  
+   - `aws ecs register-task-definition --cli-input-json file://$PWD/tasks/blog-task-definition.json` 
+   
+   
    For your convenience we already uploded one, so this action is not necessary.
 
 4. Once the definition has been uploaded, is time to create the Service, using the following command.
@@ -52,16 +54,17 @@ During this Playground we are going to use the AWS CLI to create an ECS cluster,
      --network-configuration "awsvpcConfiguration={subnets=[${subnet_id}],securityGroups=[${ghost_sg_id}],assignPublicIp=ENABLED}"
      
  ```
- In ECS, the Service is the controller that spawn an entity called Task. Task is the activity that download the image, create or destroy a container. The Service is the entity that keep the service up and running to a desired count or scale it.
+ In ECS, the Service is the controller that spawn an entity called Task.   
+ Task is the activity that download the image, create or destroy a container. Service is the entity that keep the service up and running to a desired count or scale it.
  For external access, we can attach the Service entity to a Service Load Balancer, so  that the load will be evenly distributed amongst our services.
 
 5. We can always retrieve up-to-date information about our service by using the `describe-services` command in the CLI
    - `aws ecs describe-services --cluster ${cluster_name} --service farghost-1 `
 
 ## Retrieve Public ID  
-At this point, the only thing we need is the IP address of the AWS Fargate instance.
+At this point, the only thing we need is the IP address of the AWS Fargate instance.  
 The AWS CLI doesn't provide this information directly through the `describe-services` or `describe-tasks` command.
-To find it, we need to go through AWS Networking Schema!  
+To find it, we need to do some digging through the AWS Networking System.
 
 Everything that is connected in AWS has an attached entity called ENI - Elastic Network Interface; by knowing this information we can retrieve the public ip address of the instance.  
 In order to do this, we first...  
