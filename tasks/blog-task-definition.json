@@ -1,0 +1,23 @@
+{
+    "family": "my-blog", 
+    "networkMode": "awsvpc", 
+    "containerDefinitions": [
+        {
+            "name": "blog-frontend", 
+            "image": "ghost:1.20", 
+            "portMappings": [
+                {
+                    "containerPort": 2368, 
+                    "hostPort": 2368, 
+                    "protocol": "tcp"
+                }
+            ], 
+            "essential": true
+        }
+    ], 
+    "requiresCompatibilities": [
+        "FARGATE"
+    ], 
+    "cpu": "256", 
+    "memory": "512"
+}
