@@ -53,11 +53,10 @@ During this Playground we are going to use the AWS CLI to create an ECS cluster,
      --desired-count 1 --launch-type "FARGATE" \
      --network-configuration "awsvpcConfiguration={subnets=[${subnet_id}],securityGroups=[${ghost_sg_id}],assignPublicIp=ENABLED}"
      
- ```
- In ECS, the Service is the controller that spawn an entity called Task.   
- Task is the activity that download the image, create or destroy a container.   
- Service is the entity that keep the service up and running to a desired count or scale it.
- For external access, we can attach the Service entity to a Service Load Balancer, so  that the load will be evenly distributed amongst our services.
+ ```  
+ This action both create a Service and a Task.  
+ Task is the activity that download the image, create or destroy a container while Service is the entity that keep the images up and running to a desired count or scale it and spawn Tasks.
+ For external access, we can attach Service entity to a Service Load Balancer, so  that the load will be evenly distributed amongst our services.
 
 5. We can always retrieve up-to-date information about our service by using the `describe-services` command in the CLI
    - `aws ecs describe-services --cluster ${cluster_name} --service farghost-1 `
