@@ -55,13 +55,14 @@ During this Playground we are going to use the AWS CLI to create an ECS cluster,
      
  ```
  In ECS, the Service is the controller that spawn an entity called Task.   
- Task is the activity that download the image, create or destroy a container. Service is the entity that keep the service up and running to a desired count or scale it.
+ Task is the activity that download the image, create or destroy a container.   
+ Service is the entity that keep the service up and running to a desired count or scale it.
  For external access, we can attach the Service entity to a Service Load Balancer, so  that the load will be evenly distributed amongst our services.
 
 5. We can always retrieve up-to-date information about our service by using the `describe-services` command in the CLI
    - `aws ecs describe-services --cluster ${cluster_name} --service farghost-1 `
 
-## Retrieve Public ID  
+## Retrieve Public IP
 At this point, the only thing we need is the IP address of the AWS Fargate instance.  
 The AWS CLI doesn't provide this information directly through the `describe-services` or `describe-tasks` command.
 To find it, we need to do some digging through the AWS Networking System.
@@ -69,14 +70,14 @@ To find it, we need to do some digging through the AWS Networking System.
 Everything that is connected in AWS has an attached entity called ENI - Elastic Network Interface; by knowing this information we can retrieve the public ip address of the instance.  
 In order to do this, we first...  
 
-1. Retrieve the information from your cluster, and search for the running task ID
+1. Retrieve the Task ID from our cluster definition:
    - `aws ecs describe-services --cluster ${cluster_name} --service farghost-1  | grep task`
 
 
 2. Inspect your task using the `describe-tasks` command in the CLI
    - `aws ecs describe-tasks --cluster ${cluster_name} --tasks YOUR_TASK_ID `
 
-3. Retrieve the ENI Id from the task definition:
+3. Retrieve the ENI ID from the task definition:
    - `aws ecs describe-tasks --cluster ${cluster_name} --tasks YOUR_TASK_ID  | grep eni`
 
 4. Retrieve the PublicIp by using the `describe-network-interfaces` command from the `aws ec2` cli
