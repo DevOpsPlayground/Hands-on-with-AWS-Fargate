@@ -6,7 +6,7 @@
 
 During this Playground we are going to use the AWS CLI to create an ECS cluster, launching a service using the Fargate Launch Type. We will understand it's functionality and it's place amongst the AWS Cloud Services.
 
-**Name:** Enzo Rivello 
+**Name:** Enzo Rivello  
 **Role:** DevOps And Continuous Delivery Consultant  
 **Email:** enzo@ecs-digital.co.uk  
 **Linkedin:** https://www.linkedin.com/in/enzoriv/  
@@ -17,18 +17,19 @@ During this Playground we are going to use the AWS CLI to create an ECS cluster,
 
 1. SSH Client (Terminal or Putty)
 2. Paper with neccesary variables provided by ECS Digital:
-  - IP Address
-  - Security Group ID
-  - Public Subnet ID
+ - IP Address
+ - Security Group ID
+ - Public Subnet ID
+
 
 ## Setup
-1. Open your console (Putty for Windows Users)
+1. Open your SSH Client
 2. Connect to your provisional instance:
  - `ssh ec2-user@Provided-Ip-Address`
-3. Password is `ecs-digital` 
+3. You are ready to go!
 
 ## Deployment
-1. Set up variables
+1. To ease the deployment 
  - 
  ```
  cluster_name=<name>-<surname>-cluster
@@ -38,8 +39,6 @@ During this Playground we are going to use the AWS CLI to create an ECS cluster,
 
 2. Create your cluster: 
  - `aws ecs create-cluster --cluster-name ${cluster_name}`
-## TODO: add Task Registration explanation
-## TODO Beautify with BillyM template
 3. Create your blog service
  - 
  ```
