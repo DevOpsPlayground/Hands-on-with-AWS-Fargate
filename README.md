@@ -33,8 +33,8 @@ During this Playground we are going to use the AWS CLI to create an ECS cluster 
 1. To simplify the deployment, we will start by defining some variables that we are going to use later
  ```
  cluster_name=<name>-<surname>-cluster
- subnet_id=<provided-subnet-id>
- ghost_sg_id=<provided-sg-id>
+ subnet_id=subnet-d1b2e18c
+ ghost_sg_id=sg-1a667d6d
  ```
 
 2. The first step in deploying a new service to Elastic Container Service is to define a Cluster.
